@@ -18,8 +18,9 @@ class Parity(object):
         }
         response = requests.post(self.node_address, data=json.dumps(payload), headers=headers).json()
 
+        # import pytest; pytest.set_trace()
         if "error" in response:
-            raise ChildProcessError("Node reported an error", response["error"])
+            raise ChildProcessError("Node reported an error", payload, response["error"])
 
         return response
 
@@ -36,12 +37,12 @@ class Parity(object):
         return self.query("eth_getBlockByNumber", [block, False])
         
 
-    def get_transaction_count(self, address):
-        return self.query("eth_getTransactionCount", [address])
+    def get_transaction_count(self, address, block="latest"):
+        return self.query("eth_getTransactionCount", [address, block])
 
 
-    def get_balance(self, address):
-        return self.query("eth_getBalance", [address])
+    def get_balance(self, address, block="latest"):
+        return self.query("eth_getBalance", [address, block])
 
 
     def get_transaction_by_hash(self, hash):

@@ -18,19 +18,10 @@ class Parity(object):
         }
         response = requests.post(self.node_address, data=json.dumps(payload), headers=headers).json()
 
-        # import pytest; pytest.set_trace()
         if "error" in response:
             raise ChildProcessError("Node reported an error", payload, response["error"])
 
         return response
-
-
-    # def get_transaction_hashes(self, block):
-    #     response = self.query("eth_getBlockByNumber", [block, False])
-    #     transaction_hashes = response["result"]["transactions"]
-
-    #     for transaction_hash in transaction_hashes:
-    #         yield transaction_hash
 
 
     def get_block_by_number(self, block):
@@ -63,4 +54,4 @@ if __name__ == "__main__":
                 never_spent += balance
                 print(f"Running total, never spent: {never_spent / 10**18: ,f}")
 
-    print(f"Final total, never spent: {never_spent / 10**18: ,f}")     
+    print(f"Final total, never spent: {never_spent / 10**18: ,f}")

@@ -79,3 +79,4 @@ celerybeat-*
 Procfile
 .vs
 .vscode
+classic.json
